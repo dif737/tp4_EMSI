@@ -1,15 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View, Text } from 'react-native';
-
-export default function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Paramètres</Text>
-    </View>
-  );
-}
-=======
 import { View, Text, StyleSheet, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -81,4 +70,3 @@ const styles = StyleSheet.create({
     marginLeft: 10
   }
 });
->>>>>>> cef52bfef1e1a260561f93d7297086a64986041a

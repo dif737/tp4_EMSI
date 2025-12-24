@@ -1,16 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View, Text } from 'react-native';
-
-export default function DetailsScreen({ route }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Écran de détails</Text>
-      {route.params && <Text>ID reçu : {route.params.id}</Text>}
-    </View>
-  );
-}
-=======
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -75,4 +63,3 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
->>>>>>> cef52bfef1e1a260561f93d7297086a64986041a

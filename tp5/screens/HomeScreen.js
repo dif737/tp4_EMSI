@@ -1,19 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View, Text, Button } from 'react-native';
-
-export default function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Écran d'accueil</Text>
-      <Button
-        title="Aller aux détails"
-        onPress={() => navigation.navigate('Details', { id: 42 })}
-      />
-    </View>
-  );
-}
-=======
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -73,4 +58,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
->>>>>>> cef52bfef1e1a260561f93d7297086a64986041a
