@@ -1,18 +1,29 @@
 {
   "name": "tp6_reactnative",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~54.0.30",
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/drawer": "^6.6.14",
+    "@react-navigation/native": "^6.1.9",
+    "@reduxjs/toolkit": "^2.4.0",
+    "expo": "~54.0.0",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
-    "react-native": "0.81.5"
+    "react-native": "0.81.5",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-reanimated": "~4.1.1",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "react-native-worklets": "0.5.1",
+    "react-redux": "^9.2.0",
+    "zustand": "^5.0.3"
   },
   "private": true
 }
