@@ -1,49 +1,51 @@
-import React, { useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { addTodo } from '../store/todosSlice';
+import { View, Text, FlatList, Button, TextInput } from "react-native";
+import { useEffect, useContext, useState } from "react";
+import { useTodoStore } from "../store/useTodoStore";
+import { AuthContext } from "../context/AuthContext";
+import AppBar from "../components/AppBar";
 
-export default function TodolistScreen({ navigation }) {
-  const todos = useSelector((state) => state.todos);
-  const dispatch = useDispatch();
+export default function TodoListScreen() {
+  const { user } = useContext(AuthContext);
+  const { todos, loadTodos, addTodo } = useTodoStore();
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
-    if (todos.length === 0) {
-      dispatch(addTodo({ id: 1, title: 'Faire les courses' }));
-      dispatch(addTodo({ id: 2, title: 'Sortir le chien' }));
-      dispatch(addTodo({ id: 3, title: 'Coder une app RN' }));
-    }
-  }, []);
+    if (user) loadTodos(user.uid);
+  }, [user]);
+
+  const handleAddTodo = () => {
+    if (!title.trim()) return;
+    addTodo(user.uid, title);
+    setTitle("");
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Mes tâches</Text>
+    <View style={{ flex: 1 }}>
+      <AppBar title="Mes tâches" />
+
+      <View style={{ padding: 15 }}>
+        <TextInput
+          placeholder="Nouvelle tâche..."
+          value={title}
+          onChangeText={setTitle}
+          style={{
+            borderWidth: 1,
+            borderColor: "#ccc",
+            padding: 10,
+            borderRadius: 6,
+            marginBottom: 10,
+          }}
+        />
+        <Button title="Ajouter la tâche" onPress={handleAddTodo} />
+      </View>
+
       <FlatList
         data={todos}
         keyExtractor={(i) => i.id.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('DetailsTâche', item)}
-          >
-            <Text style={styles.item}>{item.title}</Text>
-          </TouchableOpacity>
+          <Text style={{ padding: 15, fontSize: 16 }}>• {item.title}</Text>
         )}
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 10,
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-  },
-});

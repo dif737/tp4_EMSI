@@ -4,20 +4,17 @@ import {
   loadTodos,
   addTodoOffline,
   updateTodoOffline,
-  deleteTodoOffline 
+  deleteTodoOffline,
 } from "../services/database";
 import { ThemeContext } from "../context/ThemeContext";
 
-export default function TodolistOfflineScreen() {
+export default function TodoListOfflineScreen() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [editingId, setEditingId] = useState(null);
-
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const refreshTodos = () => {
-    setTodos(loadTodos());
-  };
+  const refreshTodos = () => setTodos(loadTodos());
 
   const handleAddOrUpdate = () => {
     if (!title.trim()) return;
@@ -33,18 +30,12 @@ export default function TodolistOfflineScreen() {
     refreshTodos();
   };
 
-  const handleDelete = (id) => {
-    deleteTodoOffline(id);
-    refreshTodos();
-  };
-
   useEffect(() => {
     refreshTodos();
   }, []);
 
   return (
-    <>
-     
+    <View style={{ flex: 1 }}>
       <Button
         title={`Passer en mode ${theme === "light" ? "dark" : "light"}`}
         onPress={toggleTheme}
@@ -55,20 +46,14 @@ export default function TodolistOfflineScreen() {
           placeholder="Tâche offline"
           value={title}
           onChangeText={setTitle}
-          style={{
-            borderWidth: 1,
-            padding: 10,
-            marginBottom: 10,
-          }}
+          style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
         />
-
         <Button
-          title={editingId ? "📝 Mettre à jour" : "➕ Ajouter hors ligne"}
+          title={editingId ? "✏️ Mettre à jour" : "➕ Ajouter hors ligne"}
           onPress={handleAddOrUpdate}
         />
       </View>
 
-    
       {todos.length === 0 ? (
         <Text style={{ textAlign: "center", marginTop: 20 }}>
           Aucune tâche disponible hors ligne
@@ -83,31 +68,30 @@ export default function TodolistOfflineScreen() {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 padding: 10,
+                alignItems: "center",
               }}
             >
-              <Text>{item.title}</Text>
-              
-              
-              <View style={{ flexDirection: "row" }}>
-                
-                <Button
-                  title="✏️"
-                  onPress={() => {
-                    setTitle(item.title);
-                    setEditingId(item.id);
-                  }}
-                />
-                
-        
-                <Button
-                  title="🗑️"
-                  onPress={() => handleDelete(item.id)}
-                />
-              </View>
+              <Text style={{ flex: 1 }}>{item.title}</Text>
+
+              <Button
+                title="✏️"
+                onPress={() => {
+                  setTitle(item.title);
+                  setEditingId(item.id);
+                }}
+              />
+
+              <Button
+                title="🗑️"
+                onPress={() => {
+                  deleteTodoOffline(item.id);
+                  refreshTodos();
+                }}
+              />
             </View>
           )}
         />
       )}
-    </>
+    </View>
   );
 }
